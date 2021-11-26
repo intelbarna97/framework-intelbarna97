@@ -40,7 +40,7 @@ public class WorkManagerImplTest {
     @Test
     void readAllHappyPath() {
         List<WorksEntity> worksEntities = List.of(TestDataProvider.getTestWork01Entity(), TestDataProvider.getTestWork02Entity());
-        Collection<Work> expectedWorks = List.of(WorkManagerImplTest.TestDataProvider.getTestWork01(), WorkManagerImplTest.TestDataProvider.getTestWork02());
+        Collection<Work> expectedWorks = List.of(TestDataProvider.getTestWork01(), TestDataProvider.getTestWork02());
         when(worksRepository.findAll()).thenReturn(worksEntities);
         Collection<Work> actualWorks = service.readAll();
         assertThat(actualWorks).usingRecursiveComparison().isEqualTo(expectedWorks);
@@ -111,7 +111,7 @@ public class WorkManagerImplTest {
 
         public static Work getTestWork02() {
             return new Work(
-                    WORK01_ID,
+                    WORK02_ID,
                     "work title test 2",
                     "work long title test 2",
                     2022,
