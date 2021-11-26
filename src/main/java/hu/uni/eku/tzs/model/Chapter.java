@@ -12,6 +12,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class Chapter {
+
     private int id;
 
     private int act;

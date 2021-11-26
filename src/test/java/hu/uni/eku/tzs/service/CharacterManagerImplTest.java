@@ -6,7 +6,7 @@ import hu.uni.eku.tzs.dao.entity.CharactersEntity;
 import hu.uni.eku.tzs.model.Character;
 import hu.uni.eku.tzs.service.exceptions.CharacterAlreadyExistsException;
 import hu.uni.eku.tzs.service.exceptions.CharacterNotFoundException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,7 +30,7 @@ public class CharacterManagerImplTest {
     CharacterManagerImpl service;
 
     @Test
-    public void readByIdHappyPath() throws CharacterNotFoundException {
+    void readByIdHappyPath() throws CharacterNotFoundException {
         when(charactersRepository.findById(TestDataProvider.CHARACTER01_ID)).thenReturn(Optional.of(TestDataProvider.getTestCharacter01Entity()));
         Character expected = TestDataProvider.getTestCharacter01();
         Character actual = service.readById(TestDataProvider.CHARACTER01_ID);
@@ -38,7 +38,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    public void readAllHappyPath() {
+    void readAllHappyPath() {
         List<CharactersEntity> characterEntities = List.of(TestDataProvider.getTestCharacter01Entity(), TestDataProvider.getTestCharacter02Entity());
         Collection<Character> expectedCharacters = List.of(TestDataProvider.getTestCharacter01(), TestDataProvider.getTestCharacter02());
         when(charactersRepository.findAll()).thenReturn(characterEntities);
@@ -47,7 +47,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    public void recordCharacterHappyPath() throws CharacterAlreadyExistsException {
+    void recordCharacterHappyPath() throws CharacterAlreadyExistsException {
         Character testCharacter = TestDataProvider.getTestCharacter01();
         CharactersEntity testCharactersEntity = TestDataProvider.getTestCharacter01Entity();
         when(charactersRepository.findById(any())).thenReturn(Optional.empty());
@@ -57,7 +57,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    public void recordCharacterThrowsCharacterAlreadyExists() {
+    void recordCharacterThrowsCharacterAlreadyExists() {
         Character testCharacter = TestDataProvider.getTestCharacter01();
         CharactersEntity testCharacterEntity = TestDataProvider.getTestCharacter01Entity();
         when(charactersRepository.findById(TestDataProvider.CHARACTER01_ID)).thenReturn(Optional.ofNullable(testCharacterEntity));
@@ -65,14 +65,14 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    public void modifyCharacterThrowCharacterNotFoundException() {
+    void modifyCharacterThrowCharacterNotFoundException() {
         Character character = TestDataProvider.getTestCharacter01();
         when(charactersRepository.findById(character.getId())).thenReturn(Optional.empty());
         assertThatThrownBy(() -> service.modify(character)).isInstanceOf(CharacterNotFoundException.class);
     }
 
     @Test
-    public void modifyCharacterHappyPath() throws CharacterNotFoundException {
+    void modifyCharacterHappyPath() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getTestCharacter02();
         CharactersEntity testCharactersEntity = TestDataProvider.getTestCharacter02Entity();
         when(charactersRepository.findById(testCharacter.getId())).thenReturn(Optional.of(testCharactersEntity));
@@ -82,7 +82,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    public void deleteCharacterHappyPath() throws CharacterNotFoundException {
+    void deleteCharacterHappyPath() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getTestCharacter01();
         CharactersEntity testCharactersEntity = TestDataProvider.getTestCharacter01Entity();
         when(charactersRepository.findById(testCharacter.getId())).thenReturn(Optional.of(testCharactersEntity));
@@ -90,7 +90,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    public void deleteCharacterThrowException() {
+    void deleteCharacterThrowException() {
         Character character = TestDataProvider.getTestCharacter02();
         assertThatThrownBy(() -> service.delete(character)).isInstanceOf(CharacterNotFoundException.class);
     }

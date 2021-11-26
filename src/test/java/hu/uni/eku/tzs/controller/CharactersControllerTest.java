@@ -6,7 +6,7 @@ import hu.uni.eku.tzs.model.Character;
 import hu.uni.eku.tzs.service.CharacterManager;
 import hu.uni.eku.tzs.service.exceptions.CharacterAlreadyExistsException;
 import hu.uni.eku.tzs.service.exceptions.CharacterNotFoundException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -34,7 +34,7 @@ public class CharactersControllerTest {
     CharactersController controller;
 
     @Test
-    public void readByIdHappyPath() throws CharacterNotFoundException {
+    void readByIdHappyPath() throws CharacterNotFoundException {
         when(characterManager.readById(TestDataProvider.getCharacter().getId())).thenReturn(TestDataProvider.getCharacter());
         CharacterDto expected = TestDataProvider.getCharacterDto();
         when(characterMapper.character2CharacterDto(any())).thenReturn(TestDataProvider.getCharacterDto());
@@ -43,14 +43,14 @@ public class CharactersControllerTest {
     }
 
     @Test
-    public  void readByIdThrowsCharacterNotFoundException() throws CharacterNotFoundException {
+    void readByIdThrowsCharacterNotFoundException() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getCharacter();
         when(characterManager.readById(testCharacter.getId())).thenThrow(new CharacterNotFoundException());
         assertThatThrownBy(() -> controller.readById(testCharacter.getId())).isInstanceOf(ResponseStatusException.class);
     }
 
     @Test
-    public  void readAllHappyPath() {
+    void readAllHappyPath() {
         when(characterManager.readAll()).thenReturn(List.of(TestDataProvider.getCharacter()));
         when(characterMapper.character2CharacterDto(any())).thenReturn(TestDataProvider.getCharacterDto());
         Collection<CharacterDto> expected = List.of(TestDataProvider.getCharacterDto());
@@ -59,7 +59,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    public  void createCharacterHappyPath() throws CharacterAlreadyExistsException {
+    void createCharacterHappyPath() throws CharacterAlreadyExistsException {
         Character testCharacter = TestDataProvider.getCharacter();
         CharacterDto testCharacterDto = TestDataProvider.getCharacterDto();
         when(characterMapper.characterDto2Character(testCharacterDto)).thenReturn(testCharacter);
@@ -70,7 +70,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    public   void createCharacterThrowsCharacterAlreadyExists() throws CharacterAlreadyExistsException {
+    void createCharacterThrowsCharacterAlreadyExists() throws CharacterAlreadyExistsException {
         Character testCharacter = TestDataProvider.getCharacter();
         CharacterDto testCharacterDto = TestDataProvider.getCharacterDto();
         when(characterMapper.characterDto2Character(testCharacterDto)).thenReturn(testCharacter);
@@ -79,7 +79,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    public  void updateHappyPath() throws CharacterNotFoundException {
+    void updateHappyPath() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getCharacter();
         CharacterDto testCharacterDto = TestDataProvider.getCharacterDto();
         when(characterMapper.characterDto2Character(testCharacterDto)).thenReturn(testCharacter);
@@ -91,7 +91,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    public  void deleteFromQueryParamHappyPath() throws CharacterNotFoundException {
+    void deleteFromQueryParamHappyPath() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getCharacter();
         when(characterManager.readById(TestDataProvider.CHARACTER_ID)).thenReturn(testCharacter);
         doNothing().when(characterManager).delete(testCharacter);
@@ -99,7 +99,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    public  void deleteFromQueryParamThrowException() throws CharacterNotFoundException {
+    void deleteFromQueryParamThrowException() throws CharacterNotFoundException {
         final int notFoundCharacterId = TestDataProvider.CHARACTER_ID;
         doThrow(new CharacterNotFoundException()).when(characterManager).readById(notFoundCharacterId);
         assertThatThrownBy(() -> controller.delete(notFoundCharacterId)).isInstanceOf(ResponseStatusException.class);
