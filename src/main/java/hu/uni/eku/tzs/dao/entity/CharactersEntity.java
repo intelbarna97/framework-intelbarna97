@@ -19,11 +19,11 @@ public class CharactersEntity {
     private int id;
 
     @Column(name = "CharName")
-    private String CharName;
+    private String charName;
 
     @Column(name = "Abbrev")
-    private String Abbrev;
+    private String abbrev;
 
     @Column(name = "Description")
-    private String Description;
+    private String description;
 }

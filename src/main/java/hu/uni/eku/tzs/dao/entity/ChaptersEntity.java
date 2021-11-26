@@ -22,13 +22,13 @@ public class ChaptersEntity {
     private int id;
 
     @Column(name = "Act")
-    private int Act;
+    private int act;
 
     @Column(name = "Scene")
-    private int Scene;
+    private int scene;
 
     @Column(name = "Description")
-    private String Description;
+    private String description;
 
     @Column(name = "work_id")
     private int workId;

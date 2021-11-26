@@ -15,17 +15,17 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "chapters")
+@Table(name = "paragraphs")
 public class ParagraphsEntity {
     @Id
     @Column(name = "id")
     private int id;
 
     @Column(name = "ParagraphNum")
-    private int ParagraphNum;
+    private int paragraphNum;
 
     @Column(name = "PlainText")
-    private String PlainText;
+    private String plainText;
 
     @Column(name = "character_id")
     private int characterId;

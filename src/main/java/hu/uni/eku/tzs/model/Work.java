@@ -8,14 +8,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Chapter {
+public class Work {
     private int id;
 
-    private int act;
+    private String title;
 
-    private int scene;
+    private String longTitle;
 
-    private String description;
+    private int date;
 
-    private int workId;
+    private String genreType;
 }

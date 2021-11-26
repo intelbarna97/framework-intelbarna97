@@ -15,21 +15,21 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "chapters")
+@Table(name = "works")
 public class WorksEntity {
     @Id
     @Column(name = "id")
     private int id;
 
     @Column(name = "Title")
-    private String Title;
+    private String title;
 
     @Column(name = "LongTitle")
-    private String LongTitle;
+    private String longTitle;
 
     @Column(name = "Date")
-    private int Date;
+    private int date;
 
     @Column(name = "GenreType")
-    private String GenreType;
+    private String genreType;
 }
