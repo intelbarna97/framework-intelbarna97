@@ -72,7 +72,7 @@ public class ChapterManagerImpl implements ChapterManager {
     public Chapter modify(Chapter chapter) throws ChapterNotFoundException {
         ChaptersEntity entity = convertChapterModel2Entity(chapter);
         if (chaptersRepository.findById(chapter.getId()).isEmpty()) {
-            throw new ChapterNotFoundException(String.format("Can't find chapter ID %s", chapter.getId()));
+            throw new ChapterNotFoundException(String.format("ID %s doesn't exist", chapter.getId()));
         }
         return convertChapterEntity2Model(chaptersRepository.save(entity));
     }

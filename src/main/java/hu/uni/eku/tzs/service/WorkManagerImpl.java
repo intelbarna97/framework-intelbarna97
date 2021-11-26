@@ -66,7 +66,7 @@ public class WorkManagerImpl implements WorkManager {
     public Work readById(int id) throws WorkNotFoundException {
         Optional<WorksEntity> entity = worksRepository.findById(id);
         if (entity.isEmpty()) {
-            throw new WorkNotFoundException(String.format("Can't find work ID %s", id));
+            throw new WorkNotFoundException(String.format("ID %s doesn't exist", id));
         }
         return convertWorkEntity2Model(entity.get());
     }

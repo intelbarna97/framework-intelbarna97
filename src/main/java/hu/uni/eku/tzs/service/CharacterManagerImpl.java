@@ -71,7 +71,7 @@ public class CharacterManagerImpl implements CharacterManager {
     public Character modify(Character character) throws CharacterNotFoundException {
         CharactersEntity entity = convertCharacterModel2Entity(character);
         if (charactersRepository.findById(character.getId()).isEmpty()) {
-            throw new CharacterNotFoundException(String.format("Can't find character ID %s", character.getId()));
+            throw new CharacterNotFoundException(String.format("ID %s doesn't exist", character.getId()));
         }
         return convertCharacterEntity2Model(charactersRepository.save(entity));
     }

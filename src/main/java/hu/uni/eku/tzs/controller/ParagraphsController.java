@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 
 public class ParagraphsController {
     private final ParagraphManager paragraphManager;
+
     private final ParagraphMapper paragraphMapper;
 
     @ApiOperation("ReadById")
