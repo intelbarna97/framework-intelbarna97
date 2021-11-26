@@ -1,7 +1,6 @@
 package hu.uni.eku.tzs.service;
 
 import hu.uni.eku.tzs.dao.CharactersRepository;
-import hu.uni.eku.tzs.dao.entity.ChaptersEntity;
 import hu.uni.eku.tzs.dao.entity.CharactersEntity;
 import hu.uni.eku.tzs.model.Character;
 import hu.uni.eku.tzs.service.exceptions.CharacterAlreadyExistsException;

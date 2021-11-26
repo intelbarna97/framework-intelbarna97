@@ -14,11 +14,10 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ParagraphManagerImpl implements ParagraphManager{
+public class ParagraphManagerImpl implements ParagraphManager {
     private final ParagraphsRepository paragraphsRepository;
 
-    private static Paragraph convertParagraphEntity2Model(ParagraphsEntity paragraphsEntity)
-    {
+    private static Paragraph convertParagraphEntity2Model(ParagraphsEntity paragraphsEntity) {
         return new Paragraph(
                 paragraphsEntity.getId(),
                 paragraphsEntity.getParagraphNum(),
@@ -28,8 +27,7 @@ public class ParagraphManagerImpl implements ParagraphManager{
         );
     }
 
-    private  static ParagraphsEntity convertParagraphModel2Entity(Paragraph paragraph)
-    {
+    private static ParagraphsEntity convertParagraphModel2Entity(Paragraph paragraph) {
         return ParagraphsEntity.builder()
                 .id(paragraph.getId())
                 .paragraphNum(paragraph.getParagraphNum())
@@ -40,8 +38,7 @@ public class ParagraphManagerImpl implements ParagraphManager{
     }
 
     @Override
-    public Collection<Paragraph> readAll()
-    {
+    public Collection<Paragraph> readAll() {
         return paragraphsRepository.findAll()
                 .stream()
                 .map(ParagraphManagerImpl::convertParagraphEntity2Model)
@@ -49,8 +46,7 @@ public class ParagraphManagerImpl implements ParagraphManager{
     }
 
     @Override
-    public Paragraph readById(int id) throws ParagraphNotFoundException
-    {
+    public Paragraph readById(int id) throws ParagraphNotFoundException {
         Optional<ParagraphsEntity> entity = paragraphsRepository.findById(id);
         if (entity.isEmpty()) {
             throw new ParagraphNotFoundException(String.format("Can't find paragraph ID %s", id));
@@ -59,8 +55,7 @@ public class ParagraphManagerImpl implements ParagraphManager{
     }
 
     @Override
-    public Paragraph record(Paragraph paragraph) throws ParagraphAlreadyExistsException
-    {
+    public Paragraph record(Paragraph paragraph) throws ParagraphAlreadyExistsException {
         if (paragraphsRepository.findById(paragraph.getId()).isPresent()) {
             throw new ParagraphAlreadyExistsException("A paragraph with this ID already exists");
         }
@@ -76,21 +71,17 @@ public class ParagraphManagerImpl implements ParagraphManager{
     }
 
     @Override
-    public Paragraph modify(Paragraph paragraph) throws ParagraphNotFoundException
-    {
+    public Paragraph modify(Paragraph paragraph) throws ParagraphNotFoundException {
         ParagraphsEntity entity = convertParagraphModel2Entity(paragraph);
-        if(paragraphsRepository.findById(paragraph.getId()).isEmpty())
-        {
+        if (paragraphsRepository.findById(paragraph.getId()).isEmpty()) {
             throw new ParagraphNotFoundException(String.format("Can't find paragraph ID %s", paragraph.getId()));
         }
         return convertParagraphEntity2Model(paragraphsRepository.save(entity));
     }
 
     @Override
-    public void delete(Paragraph paragraph) throws ParagraphNotFoundException
-    {
-        if(paragraphsRepository.findById(paragraph.getId()).isEmpty())
-        {
+    public void delete(Paragraph paragraph) throws ParagraphNotFoundException {
+        if (paragraphsRepository.findById(paragraph.getId()).isEmpty()) {
             throw new ParagraphNotFoundException("This paragraph doesn't exist");
         }
         paragraphsRepository.delete(convertParagraphModel2Entity(paragraph));

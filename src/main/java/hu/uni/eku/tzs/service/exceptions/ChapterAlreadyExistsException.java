@@ -16,7 +16,8 @@ public class ChapterAlreadyExistsException extends Exception {
         super(cause);
     }
 
-    public ChapterAlreadyExistsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ChapterAlreadyExistsException(String message, Throwable cause, boolean enableSuppression,
+                                         boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

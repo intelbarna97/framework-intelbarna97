@@ -16,7 +16,8 @@ public class ParagraphNotFoundException extends Exception {
         super(cause);
     }
 
-    public ParagraphNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ParagraphNotFoundException(String message, Throwable cause, boolean enableSuppression,
+                                      boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

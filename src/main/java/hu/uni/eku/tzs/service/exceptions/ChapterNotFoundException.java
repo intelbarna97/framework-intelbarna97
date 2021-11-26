@@ -16,7 +16,8 @@ public class ChapterNotFoundException extends Exception {
         super(cause);
     }
 
-    public ChapterNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ChapterNotFoundException(String message, Throwable cause, boolean enableSuppression,
+                                    boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

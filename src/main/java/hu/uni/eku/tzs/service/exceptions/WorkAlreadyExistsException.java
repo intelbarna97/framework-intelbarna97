@@ -16,7 +16,8 @@ public class WorkAlreadyExistsException extends Exception {
         super(cause);
     }
 
-    public WorkAlreadyExistsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public WorkAlreadyExistsException(String message, Throwable cause, boolean enableSuppression,
+                                      boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

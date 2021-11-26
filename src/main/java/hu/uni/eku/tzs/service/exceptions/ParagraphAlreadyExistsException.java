@@ -16,7 +16,8 @@ public class ParagraphAlreadyExistsException extends Exception {
         super(cause);
     }
 
-    public ParagraphAlreadyExistsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ParagraphAlreadyExistsException(String message, Throwable cause, boolean enableSuppression,
+                                           boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

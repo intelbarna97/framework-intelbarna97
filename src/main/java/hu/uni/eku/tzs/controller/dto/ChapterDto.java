@@ -10,9 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChapterDto {
+
     private int id;
+
     private int act;
+
     private int scene;
+
     private String description;
+
     private int workId;
 }
