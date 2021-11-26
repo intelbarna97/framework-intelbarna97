@@ -30,7 +30,7 @@ public class CharacterManagerImplTest {
     CharacterManagerImpl service;
 
     @Test
-    void readByIdHappyPath() throws CharacterNotFoundException {
+    public void readByIdHappyPath() throws CharacterNotFoundException {
         when(charactersRepository.findById(TestDataProvider.CHARACTER01_ID)).thenReturn(Optional.of(TestDataProvider.getTestCharacter01Entity()));
         Character expected = TestDataProvider.getTestCharacter01();
         Character actual = service.readById(TestDataProvider.CHARACTER01_ID);
@@ -38,7 +38,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    void readAllHappyPath() {
+    public void readAllHappyPath() {
         List<CharactersEntity> characterEntities = List.of(TestDataProvider.getTestCharacter01Entity(), TestDataProvider.getTestCharacter02Entity());
         Collection<Character> expectedCharacters = List.of(TestDataProvider.getTestCharacter01(), TestDataProvider.getTestCharacter02());
         when(charactersRepository.findAll()).thenReturn(characterEntities);
@@ -47,7 +47,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    void recordCharacterHappyPath() throws CharacterAlreadyExistsException {
+    public void recordCharacterHappyPath() throws CharacterAlreadyExistsException {
         Character testCharacter = TestDataProvider.getTestCharacter01();
         CharactersEntity testCharactersEntity = TestDataProvider.getTestCharacter01Entity();
         when(charactersRepository.findById(any())).thenReturn(Optional.empty());
@@ -57,7 +57,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    void recordCharacterThrowsCharacterAlreadyExists() {
+    public void recordCharacterThrowsCharacterAlreadyExists() {
         Character testCharacter = TestDataProvider.getTestCharacter01();
         CharactersEntity testCharacterEntity = TestDataProvider.getTestCharacter01Entity();
         when(charactersRepository.findById(TestDataProvider.CHARACTER01_ID)).thenReturn(Optional.ofNullable(testCharacterEntity));
@@ -65,14 +65,14 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    void modifyCharacterThrowCharacterNotFoundException() {
+    public void modifyCharacterThrowCharacterNotFoundException() {
         Character character = TestDataProvider.getTestCharacter01();
         when(charactersRepository.findById(character.getId())).thenReturn(Optional.empty());
         assertThatThrownBy(() -> service.modify(character)).isInstanceOf(CharacterNotFoundException.class);
     }
 
     @Test
-    void modifyCharacterHappyPath() throws CharacterNotFoundException {
+    public void modifyCharacterHappyPath() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getTestCharacter02();
         CharactersEntity testCharactersEntity = TestDataProvider.getTestCharacter02Entity();
         when(charactersRepository.findById(testCharacter.getId())).thenReturn(Optional.of(testCharactersEntity));
@@ -82,7 +82,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    void deleteCharacterHappyPath() throws CharacterNotFoundException {
+    public void deleteCharacterHappyPath() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getTestCharacter01();
         CharactersEntity testCharactersEntity = TestDataProvider.getTestCharacter01Entity();
         when(charactersRepository.findById(testCharacter.getId())).thenReturn(Optional.of(testCharactersEntity));
@@ -90,7 +90,7 @@ public class CharacterManagerImplTest {
     }
 
     @Test
-    void deleteCharacterThrowException() {
+    public void deleteCharacterThrowException() {
         Character character = TestDataProvider.getTestCharacter02();
         assertThatThrownBy(() -> service.delete(character)).isInstanceOf(CharacterNotFoundException.class);
     }

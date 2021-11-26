@@ -34,7 +34,7 @@ public class CharactersControllerTest {
     CharactersController controller;
 
     @Test
-    void readByIdHappyPath() throws CharacterNotFoundException {
+    public void readByIdHappyPath() throws CharacterNotFoundException {
         when(characterManager.readById(TestDataProvider.getCharacter().getId())).thenReturn(TestDataProvider.getCharacter());
         CharacterDto expected = TestDataProvider.getCharacterDto();
         when(characterMapper.character2CharacterDto(any())).thenReturn(TestDataProvider.getCharacterDto());
@@ -43,14 +43,14 @@ public class CharactersControllerTest {
     }
 
     @Test
-    void readByIdThrowsCharacterNotFoundException() throws CharacterNotFoundException {
+    public  void readByIdThrowsCharacterNotFoundException() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getCharacter();
         when(characterManager.readById(testCharacter.getId())).thenThrow(new CharacterNotFoundException());
         assertThatThrownBy(() -> controller.readById(testCharacter.getId())).isInstanceOf(ResponseStatusException.class);
     }
 
     @Test
-    void readAllHappyPath() {
+    public  void readAllHappyPath() {
         when(characterManager.readAll()).thenReturn(List.of(TestDataProvider.getCharacter()));
         when(characterMapper.character2CharacterDto(any())).thenReturn(TestDataProvider.getCharacterDto());
         Collection<CharacterDto> expected = List.of(TestDataProvider.getCharacterDto());
@@ -59,7 +59,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    void createCharacterHappyPath() throws CharacterAlreadyExistsException {
+    public  void createCharacterHappyPath() throws CharacterAlreadyExistsException {
         Character testCharacter = TestDataProvider.getCharacter();
         CharacterDto testCharacterDto = TestDataProvider.getCharacterDto();
         when(characterMapper.characterDto2Character(testCharacterDto)).thenReturn(testCharacter);
@@ -70,7 +70,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    void createCharacterThrowsCharacterAlreadyExists() throws CharacterAlreadyExistsException {
+    public   void createCharacterThrowsCharacterAlreadyExists() throws CharacterAlreadyExistsException {
         Character testCharacter = TestDataProvider.getCharacter();
         CharacterDto testCharacterDto = TestDataProvider.getCharacterDto();
         when(characterMapper.characterDto2Character(testCharacterDto)).thenReturn(testCharacter);
@@ -79,7 +79,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    void updateHappyPath() throws CharacterNotFoundException {
+    public  void updateHappyPath() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getCharacter();
         CharacterDto testCharacterDto = TestDataProvider.getCharacterDto();
         when(characterMapper.characterDto2Character(testCharacterDto)).thenReturn(testCharacter);
@@ -91,7 +91,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    void deleteFromQueryParamHappyPath() throws CharacterNotFoundException {
+    public  void deleteFromQueryParamHappyPath() throws CharacterNotFoundException {
         Character testCharacter = TestDataProvider.getCharacter();
         when(characterManager.readById(TestDataProvider.CHARACTER_ID)).thenReturn(testCharacter);
         doNothing().when(characterManager).delete(testCharacter);
@@ -99,7 +99,7 @@ public class CharactersControllerTest {
     }
 
     @Test
-    void deleteFromQueryParamThrowException() throws CharacterNotFoundException {
+    public  void deleteFromQueryParamThrowException() throws CharacterNotFoundException {
         final int notFoundCharacterId = TestDataProvider.CHARACTER_ID;
         doThrow(new CharacterNotFoundException()).when(characterManager).readById(notFoundCharacterId);
         assertThatThrownBy(() -> controller.delete(notFoundCharacterId)).isInstanceOf(ResponseStatusException.class);

@@ -30,7 +30,7 @@ public class WorkManagerImplTest {
     WorkManagerImpl service;
 
     @Test
-    void readByIdHappyPath() throws WorkNotFoundException {
+    public void readByIdHappyPath() throws WorkNotFoundException {
         when(worksRepository.findById(TestDataProvider.WORK01_ID)).thenReturn(Optional.of(TestDataProvider.getTestWork01Entity()));
         Work expected = TestDataProvider.getTestWork01();
         Work actual = service.readById(TestDataProvider.WORK01_ID);
@@ -38,7 +38,7 @@ public class WorkManagerImplTest {
     }
 
     @Test
-    void readAllHappyPath() {
+    public void readAllHappyPath() {
         List<WorksEntity> worksEntities = List.of(TestDataProvider.getTestWork01Entity(), TestDataProvider.getTestWork02Entity());
         Collection<Work> expectedWorks = List.of(WorkManagerImplTest.TestDataProvider.getTestWork01(), WorkManagerImplTest.TestDataProvider.getTestWork02());
         when(worksRepository.findAll()).thenReturn(worksEntities);
@@ -47,7 +47,7 @@ public class WorkManagerImplTest {
     }
 
     @Test
-    void recordWorkHappyPath() throws WorkAlreadyExistsException {
+    public void recordWorkHappyPath() throws WorkAlreadyExistsException {
         Work testWork = TestDataProvider.getTestWork01();
         WorksEntity testWorksEntity = TestDataProvider.getTestWork01Entity();
         when(worksRepository.findById(any())).thenReturn(Optional.empty());
@@ -57,7 +57,7 @@ public class WorkManagerImplTest {
     }
 
     @Test
-    void recordWorkThrowsWorkAlreadyExists() {
+    public void recordWorkThrowsWorkAlreadyExists() {
         Work testWork = TestDataProvider.getTestWork01();
         WorksEntity testWorkEntity = WorkManagerImplTest.TestDataProvider.getTestWork01Entity();
         when(worksRepository.findById(TestDataProvider.WORK01_ID)).thenReturn(Optional.ofNullable(testWorkEntity));
@@ -65,14 +65,14 @@ public class WorkManagerImplTest {
     }
 
     @Test
-    void modifyWorkThrowWorkNotFoundException() {
+    public void modifyWorkThrowWorkNotFoundException() {
         Work work = TestDataProvider.getTestWork01();
         when(worksRepository.findById(work.getId())).thenReturn(Optional.empty());
         assertThatThrownBy(() -> service.modify(work)).isInstanceOf(WorkNotFoundException.class);
     }
 
     @Test
-    void modifyWorkHappyPath() throws WorkNotFoundException {
+    public void modifyWorkHappyPath() throws WorkNotFoundException {
         Work testWork = TestDataProvider.getTestWork02();
         WorksEntity testWorksEntity = TestDataProvider.getTestWork02Entity();
         when(worksRepository.findById(testWork.getId())).thenReturn(Optional.of(testWorksEntity));
@@ -82,7 +82,7 @@ public class WorkManagerImplTest {
     }
 
     @Test
-    void deleteWorkHappyPath() throws WorkNotFoundException {
+    public void deleteWorkHappyPath() throws WorkNotFoundException {
         Work testWork = TestDataProvider.getTestWork01();
         WorksEntity testWorksEntity = TestDataProvider.getTestWork01Entity();
         when(worksRepository.findById(testWork.getId())).thenReturn(Optional.of(testWorksEntity));
@@ -90,7 +90,7 @@ public class WorkManagerImplTest {
     }
 
     @Test
-    void deleteWorkThrowException() {
+    public void deleteWorkThrowException() {
         Work work = TestDataProvider.getTestWork02();
         assertThatThrownBy(() -> service.delete(work)).isInstanceOf(WorkNotFoundException.class);
     }

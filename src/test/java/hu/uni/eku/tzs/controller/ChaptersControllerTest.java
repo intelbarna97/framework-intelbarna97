@@ -33,7 +33,7 @@ public class ChaptersControllerTest {
     ChaptersController controller;
 
     @Test
-    void readByIdHappyPath() throws ChapterNotFoundException {
+    public void readByIdHappyPath() throws ChapterNotFoundException {
         when(chapterManager.readById(TestDataProvider.getChapter().getId())).thenReturn(TestDataProvider.getChapter());
         ChapterDto expected = TestDataProvider.getChapterDto();
         when(chapterMapper.chapter2ChapterDto(any())).thenReturn(TestDataProvider.getChapterDto());
@@ -42,14 +42,14 @@ public class ChaptersControllerTest {
     }
 
     @Test
-    void readByIdThrowsChapterNotFoundException() throws ChapterNotFoundException {
+    public void readByIdThrowsChapterNotFoundException() throws ChapterNotFoundException {
         Chapter testChapter = TestDataProvider.getChapter();
         when(chapterManager.readById(testChapter.getId())).thenThrow(new ChapterNotFoundException());
         assertThatThrownBy(() -> controller.readById(testChapter.getId())).isInstanceOf(ResponseStatusException.class);
     }
 
     @Test
-    void readAllHappyPath() {
+    public void readAllHappyPath() {
         when(chapterManager.readAll()).thenReturn(List.of(TestDataProvider.getChapter()));
         when(chapterMapper.chapter2ChapterDto(any())).thenReturn(TestDataProvider.getChapterDto());
         Collection<ChapterDto> expected = List.of(TestDataProvider.getChapterDto());
@@ -58,7 +58,7 @@ public class ChaptersControllerTest {
     }
 
     @Test
-    void createChapterHappyPath() throws ChapterAlreadyExistsException {
+    public void createChapterHappyPath() throws ChapterAlreadyExistsException {
         Chapter testChapter = TestDataProvider.getChapter();
         ChapterDto testChapterDto = TestDataProvider.getChapterDto();
         when(chapterMapper.chapterDto2Chapter(testChapterDto)).thenReturn(testChapter);
@@ -69,7 +69,7 @@ public class ChaptersControllerTest {
     }
 
     @Test
-    void createChapterThrowsChapterAlreadyExists() throws ChapterAlreadyExistsException {
+    public void createChapterThrowsChapterAlreadyExists() throws ChapterAlreadyExistsException {
         Chapter testChapter = TestDataProvider.getChapter();
         ChapterDto testChapterDto = TestDataProvider.getChapterDto();
         when(chapterMapper.chapterDto2Chapter(testChapterDto)).thenReturn(testChapter);
@@ -78,7 +78,7 @@ public class ChaptersControllerTest {
     }
 
     @Test
-    void updateHappyPath() throws ChapterNotFoundException {
+    public void updateHappyPath() throws ChapterNotFoundException {
         Chapter testChapter = TestDataProvider.getChapter();
         ChapterDto testChapterDto = TestDataProvider.getChapterDto();
         when(chapterMapper.chapterDto2Chapter(testChapterDto)).thenReturn(testChapter);
@@ -90,7 +90,7 @@ public class ChaptersControllerTest {
     }
 
     @Test
-    void deleteFromQueryParamHappyPath() throws ChapterNotFoundException {
+    public void deleteFromQueryParamHappyPath() throws ChapterNotFoundException {
         Chapter testChapter = TestDataProvider.getChapter();
         when(chapterManager.readById(TestDataProvider.CHAPTER_ID)).thenReturn(testChapter);
         doNothing().when(chapterManager).delete(testChapter);
@@ -98,7 +98,7 @@ public class ChaptersControllerTest {
     }
 
     @Test
-    void deleteFromQueryParamThrowException() throws ChapterNotFoundException {
+    public void deleteFromQueryParamThrowException() throws ChapterNotFoundException {
         final int notFoundChapterId = TestDataProvider.CHAPTER_ID;
         doThrow(new ChapterNotFoundException()).when(chapterManager).readById(notFoundChapterId);
         assertThatThrownBy(() -> controller.delete(notFoundChapterId)).isInstanceOf(ResponseStatusException.class);

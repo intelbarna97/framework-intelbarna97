@@ -30,7 +30,7 @@ public class ParagraphManagerImplTest {
     ParagraphManagerImpl service;
 
     @Test
-    void readByIdHappyPath() throws ParagraphNotFoundException {
+    public void readByIdHappyPath() throws ParagraphNotFoundException {
         when(paragraphsRepository.findById(TestDataProvider.PARAGRAPH01_ID)).thenReturn(Optional.of(TestDataProvider.getTestParagraph01Entity()));
         Paragraph expected = TestDataProvider.getTestParagraph01();
         Paragraph actual = service.readById(TestDataProvider.PARAGRAPH01_ID);
@@ -38,7 +38,7 @@ public class ParagraphManagerImplTest {
     }
 
     @Test
-    void readAllHappyPath() {
+    public void readAllHappyPath() {
         List<ParagraphsEntity> paragraphEntities = List.of(TestDataProvider.getTestParagraph01Entity(), TestDataProvider.getTestParagraph02Entity());
         Collection<Paragraph> expectedParagraphs = List.of(TestDataProvider.getTestParagraph01(), TestDataProvider.getTestParagraph02());
         when(paragraphsRepository.findAll()).thenReturn(paragraphEntities);
@@ -47,7 +47,7 @@ public class ParagraphManagerImplTest {
     }
 
     @Test
-    void recordParagraphHappyPath() throws ParagraphAlreadyExistsException {
+    public void recordParagraphHappyPath() throws ParagraphAlreadyExistsException {
         Paragraph testParagraph = TestDataProvider.getTestParagraph01();
         ParagraphsEntity testParagraphsEntity = TestDataProvider.getTestParagraph01Entity();
         when(paragraphsRepository.findById(any())).thenReturn(Optional.empty());
@@ -57,7 +57,7 @@ public class ParagraphManagerImplTest {
     }
 
     @Test
-    void recordParagraphThrowsParagraphAlreadyExists() {
+    public void recordParagraphThrowsParagraphAlreadyExists() {
         Paragraph testParagraph = TestDataProvider.getTestParagraph01();
         ParagraphsEntity testParagraphEntity = TestDataProvider.getTestParagraph01Entity();
         when(paragraphsRepository.findById(TestDataProvider.PARAGRAPH01_ID)).thenReturn(Optional.ofNullable(testParagraphEntity));
@@ -65,14 +65,14 @@ public class ParagraphManagerImplTest {
     }
 
     @Test
-    void modifyParagraphThrowParagraphNotFoundException() {
+    public void modifyParagraphThrowParagraphNotFoundException() {
         Paragraph paragraph = TestDataProvider.getTestParagraph01();
         when(paragraphsRepository.findById(paragraph.getId())).thenReturn(Optional.empty());
         assertThatThrownBy(() -> service.modify(paragraph)).isInstanceOf(ParagraphNotFoundException.class);
     }
 
     @Test
-    void modifyParagraphHappyPath() throws ParagraphNotFoundException {
+    public void modifyParagraphHappyPath() throws ParagraphNotFoundException {
         Paragraph testParagraph = TestDataProvider.getTestParagraph02();
         ParagraphsEntity testParagraphsEntity = TestDataProvider.getTestParagraph02Entity();
         when(paragraphsRepository.findById(testParagraph.getId())).thenReturn(Optional.of(testParagraphsEntity));
@@ -82,7 +82,7 @@ public class ParagraphManagerImplTest {
     }
 
     @Test
-    void deleteParagraphHappyPath() throws ParagraphNotFoundException {
+    public void deleteParagraphHappyPath() throws ParagraphNotFoundException {
         Paragraph testParagraph = TestDataProvider.getTestParagraph01();
         ParagraphsEntity testParagraphsEntity = TestDataProvider.getTestParagraph01Entity();
         when(paragraphsRepository.findById(testParagraph.getId())).thenReturn(Optional.of(testParagraphsEntity));
@@ -90,7 +90,7 @@ public class ParagraphManagerImplTest {
     }
 
     @Test
-    void deleteParagraphThrowException() {
+    public void deleteParagraphThrowException() {
         Paragraph paragraph = TestDataProvider.getTestParagraph02();
         assertThatThrownBy(() -> service.delete(paragraph)).isInstanceOf(ParagraphNotFoundException.class);
     }

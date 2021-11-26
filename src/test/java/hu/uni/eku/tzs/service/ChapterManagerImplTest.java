@@ -29,7 +29,7 @@ public class ChapterManagerImplTest {
     ChapterManagerImpl service;
 
     @Test
-    void readByIdHappyPath() throws ChapterNotFoundException {
+    public void readByIdHappyPath() throws ChapterNotFoundException {
         when(chaptersRepository.findById(TestDataProvider.CHAPTER01_ID)).thenReturn(Optional.of(TestDataProvider.getTestChapter01Entity()));
         Chapter expected = TestDataProvider.getTestChapter01();
         Chapter actual = service.readById(TestDataProvider.CHAPTER01_ID);
@@ -37,7 +37,7 @@ public class ChapterManagerImplTest {
     }
 
     @Test
-    void readAllHappyPath() {
+    public void readAllHappyPath() {
         List<ChaptersEntity> chaptersEntities = List.of(TestDataProvider.getTestChapter01Entity(), TestDataProvider.getTestChapter02Entity());
         Collection<Chapter> expectedChapters = List.of(TestDataProvider.getTestChapter01(), TestDataProvider.getTestChapter02());
         when(chaptersRepository.findAll()).thenReturn(chaptersEntities);
@@ -46,7 +46,7 @@ public class ChapterManagerImplTest {
     }
 
     @Test
-    void recordChapterHappyPath() throws ChapterAlreadyExistsException {
+    public void recordChapterHappyPath() throws ChapterAlreadyExistsException {
         //given
         Chapter testChapter = TestDataProvider.getTestChapter01();
         ChaptersEntity testChaptersEntity = TestDataProvider.getTestChapter01Entity();
@@ -59,7 +59,7 @@ public class ChapterManagerImplTest {
     }
 
     @Test
-    void modifyChapterHappyPath() throws ChapterNotFoundException {
+    public void modifyChapterHappyPath() throws ChapterNotFoundException {
         //given
         Chapter testChapter = TestDataProvider.getTestChapter02();
         ChaptersEntity testChaptersEntity = TestDataProvider.getTestChapter02Entity();
@@ -72,14 +72,14 @@ public class ChapterManagerImplTest {
     }
 
     @Test
-    void modifyChapterThrowChapterNotFoundException() {
+    public void modifyChapterThrowChapterNotFoundException() {
         Chapter chapter = TestDataProvider.getTestChapter01();
         when(chaptersRepository.findById(chapter.getId())).thenReturn(Optional.empty());
         assertThatThrownBy(() -> service.modify(chapter)).isInstanceOf(ChapterNotFoundException.class);
     }
 
     @Test
-    void recordChapterAlreadyExistsException() {
+    public void recordChapterAlreadyExistsException() {
         Chapter chapter = TestDataProvider.getTestChapter01();
         ChaptersEntity chaptersEntity = TestDataProvider.getTestChapter01Entity();
         when(chaptersRepository.findById(TestDataProvider.CHAPTER01_ID)).thenReturn(Optional.ofNullable(chaptersEntity));
@@ -87,7 +87,7 @@ public class ChapterManagerImplTest {
     }
 
     @Test
-    void deleteChapterHappyPath() throws ChapterNotFoundException {
+    public void deleteChapterHappyPath() throws ChapterNotFoundException {
         Chapter testChapter = TestDataProvider.getTestChapter01();
         ChaptersEntity testChaptersEntity = TestDataProvider.getTestChapter01Entity();
         when(chaptersRepository.findById(testChapter.getId())).thenReturn(Optional.of(testChaptersEntity));
@@ -95,7 +95,7 @@ public class ChapterManagerImplTest {
     }
 
     @Test
-    void deleteChapterThrowException() {
+    public void deleteChapterThrowException() {
         Chapter chapter = TestDataProvider.getTestChapter02();
         assertThatThrownBy(() -> service.delete(chapter)).isInstanceOf(ChapterNotFoundException.class);
     }

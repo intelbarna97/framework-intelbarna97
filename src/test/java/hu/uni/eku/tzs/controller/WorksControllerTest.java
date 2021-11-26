@@ -34,7 +34,7 @@ public class WorksControllerTest {
     WorksController controller;
 
     @Test
-    void readByIdHappyPath() throws WorkNotFoundException {
+    public void readByIdHappyPath() throws WorkNotFoundException {
         when(workManager.readById(TestDataProvider.getWork().getId())).thenReturn(TestDataProvider.getWork());
         WorkDto expected = TestDataProvider.getWorkDto();
         when(workMapper.work2WorkDto(any())).thenReturn(TestDataProvider.getWorkDto());
@@ -43,14 +43,14 @@ public class WorksControllerTest {
     }
 
     @Test
-    void readByIdThrowsWorkNotFoundException() throws WorkNotFoundException {
+    public void readByIdThrowsWorkNotFoundException() throws WorkNotFoundException {
         Work testWork = TestDataProvider.getWork();
         when(workManager.readById(testWork.getId())).thenThrow(new WorkNotFoundException());
         assertThatThrownBy(() -> controller.readById(testWork.getId())).isInstanceOf(ResponseStatusException.class);
     }
 
     @Test
-    void readAllHappyPath() {
+    public void readAllHappyPath() {
         when(workManager.readAll()).thenReturn(List.of(TestDataProvider.getWork()));
         when(workMapper.work2WorkDto(any())).thenReturn(TestDataProvider.getWorkDto());
         Collection<WorkDto> expected = List.of(TestDataProvider.getWorkDto());
@@ -59,7 +59,7 @@ public class WorksControllerTest {
     }
 
     @Test
-    void createWorkHappyPath() throws WorkAlreadyExistsException {
+    public void createWorkHappyPath() throws WorkAlreadyExistsException {
         Work testWork = TestDataProvider.getWork();
         WorkDto testWorkDto = TestDataProvider.getWorkDto();
         when(workMapper.workDto2Work(testWorkDto)).thenReturn(testWork);
@@ -70,7 +70,7 @@ public class WorksControllerTest {
     }
 
     @Test
-    void createWorkThrowsWorkAlreadyExists() throws WorkAlreadyExistsException {
+    public void createWorkThrowsWorkAlreadyExists() throws WorkAlreadyExistsException {
         Work testWork = TestDataProvider.getWork();
         WorkDto testWorkDto = TestDataProvider.getWorkDto();
         when(workMapper.workDto2Work(testWorkDto)).thenReturn(testWork);
@@ -79,7 +79,7 @@ public class WorksControllerTest {
     }
 
     @Test
-    void updateHappyPath() throws WorkNotFoundException {
+    public void updateHappyPath() throws WorkNotFoundException {
         Work testWork = TestDataProvider.getWork();
         WorkDto testWorkDto = TestDataProvider.getWorkDto();
         when(workMapper.workDto2Work(testWorkDto)).thenReturn(testWork);
@@ -91,7 +91,7 @@ public class WorksControllerTest {
     }
 
     @Test
-    void deleteFromQueryParamHappyPath() throws WorkNotFoundException {
+    public void deleteFromQueryParamHappyPath() throws WorkNotFoundException {
         Work testWork = TestDataProvider.getWork();
         when(workManager.readById(TestDataProvider.WORK_ID)).thenReturn(testWork);
         doNothing().when(workManager).delete(testWork);
@@ -99,11 +99,12 @@ public class WorksControllerTest {
     }
 
     @Test
-    void deleteFromQueryParamThrowException() throws WorkNotFoundException {
+    public void deleteFromQueryParamThrowException() throws WorkNotFoundException {
         final int notFoundWorkId = TestDataProvider.WORK_ID;
         doThrow(new WorkNotFoundException()).when(workManager).readById(notFoundWorkId);
         assertThatThrownBy(() -> controller.delete(notFoundWorkId)).isInstanceOf(ResponseStatusException.class);
     }
+
     private static class TestDataProvider {
 
         public static final int WORK_ID = 1;
